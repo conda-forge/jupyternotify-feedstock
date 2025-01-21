@@ -1,24 +1,23 @@
 {% set name = "jupyternotify" %}
 {% set version = "0.1.15" %}
-{% set sha256 = "843509e7c3e3369f221a87af310165d51122e0ee8ed1c4ce0cdc34338e17b73a" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 843509e7c3e3369f221a87af310165d51122e0ee8ed1c4ce0cdc34338e17b73a
 
 build:
-  noarch: python
   number: 1
-  script: python -mpip install --no-deps --ignore-installed .
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - python {{ python_min }}
+    - setuptools
     - pip
   run:
     - python >={{ python_min }}
